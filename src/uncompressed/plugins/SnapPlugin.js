@@ -62,7 +62,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 		//parses the transform values for an element, returning an object with x, y, scaleX, scaleY, rotation, skewX, and skewY properties. Note: by default (for performance reasons), all skewing is combined into skewX and rotation but skewY still has a place in the transform object so that we can record how much of the skew is attributed to skewX vs skewY. Remember, a skewY of 10 looks the same as a rotation of 10 and skewX of -10.
 		_getTransform = function(t, rec) {
 			
-			var s = t.transform().globalMatrix,
+			var s = t.transform().localMatrix,
 				min = 0.000001,
 				a = s.a,
 				b = s.b,
