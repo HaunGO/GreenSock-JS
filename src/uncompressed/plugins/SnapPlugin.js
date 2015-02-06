@@ -405,15 +405,21 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 			}
 
 			if (v.localPivot) {
-				mtx = t.matrix;
-				dx += t.attr("x");
-				dy += t.attr("y");
+
+				mtx = t.transfomr().localMatrix;
+				dx += t.getBBox().x;
+				dy += t.getBBox().y;
+
 				this._pxl = dx;
 				this._pyl = dy;
 				this._pxg = dx * mtx.a + dy * mtx.c + mtx.e - m1.tx;
 				this._pyg = dx * mtx.b + dy * mtx.d + mtx.f - m1.ty;
 			} else {
-				mtx = t.matrix.invert();
+				var matrix = new Snap.Matrix(),
+					current = matrix.add(t.transform().localMatrix.a, t.transform().localMatrix.b, t.transform().localMatrix.c, t.transform().localMatrix.d, t.transform().localMatrix.e, t.transform().localMatrix.f);
+				
+				mtx = current.invert();
+				
 				this._pxl = dx * mtx.a + dy * mtx.c + mtx.e;
 				this._pyl = dx * mtx.b + dy * mtx.d + mtx.f;
 				this._pxg = dx - m1.tx;
